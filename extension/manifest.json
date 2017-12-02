@@ -5,7 +5,7 @@
   // Extension Description
   "name": "Bulk Image Downloader",
   "description": "Downloads a set of images from a webpage",
-  "version": "2",
+  "version": "0.0.1",
 
   "permissions": 
   [
@@ -14,17 +14,17 @@
 
   "icons": 
   {
-    "16": "icon128.png",
-    "48": "icon128.png",
-    "128": "icon128.png"
+    "16": "icons/icon.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
 
   // Page Action Definition
   "browser_action" :
   {
-    "default_title" : "Download Image Set",
+    "default_title" : "Image Set Downloader",
     "default_popup" : "download_popup.html",
-    "default_icon"  : "icon.png"
+    "default_icon"  : "icons/icon.png"
   },
 
   // Background Logic Definition
