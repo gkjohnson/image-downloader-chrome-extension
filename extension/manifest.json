@@ -23,7 +23,7 @@
   "browser_action" :
   {
     "default_title" : "Image Set Downloader",
-    "default_popup" : "download_popup.html",
+    "default_popup" : "downloadPopup.html",
     "default_icon"  : "icons/icon.png"
   },
 
@@ -45,7 +45,7 @@
   [
     {
       "matches": ["<all_urls>"],
-      "js": ["jquery.js","helpers.js","content_script.js"]
+      "js": ["jquery.js","helpers.js","contentScript.js"]
     }
   ]
 }
