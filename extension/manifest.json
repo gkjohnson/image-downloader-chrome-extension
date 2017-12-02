@@ -45,7 +45,7 @@
   [
     {
       "matches": ["<all_urls>"],
-      "js": ["jquery.js","helpers.js","contentScript.js"]
+      "js": ["lib/jquery.js","helpers.js","contentScript.js"]
     }
   ]
 }
