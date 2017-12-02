@@ -1,0 +1,1 @@
+/* Now unneeded. Used to be used to show page action icon */

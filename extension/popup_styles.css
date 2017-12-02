@@ -1,0 +1,146 @@
+*
+{
+	margin:0;
+	padding:0;
+	outline-width: 0;
+}
+body
+{
+	font-family: helvetica;
+	width:517px;
+}
+
+/* For images in List */
+#imageList
+{
+	width:100%;
+	max-height: 500px;
+
+	overflow-y: scroll;
+
+	display:inline-block;
+
+	user-select:none;
+	-webkit-user-select:none;
+}
+#imageList>div
+{
+	width:100px;
+	height:100px;
+	margin-right:2px;
+	margin-top:2px;
+	float:left;
+
+	background-size: cover;
+	background-position: center;
+
+	cursor: pointer;
+
+	position: relative;
+}
+
+#imageList>div:not(.selected)
+{
+	opacity: .25;
+}
+#imageList>div:not(.selected):hover
+{
+	opacity: .5;
+}
+
+#imageList>span
+{
+	padding:20px;
+	font-size: 13px;
+	color:#aaa;
+	text-align: center;
+	display:block;
+}
+
+/* Menu Bar */
+#menuBar
+{
+	width:100%;
+	height:58px;
+
+	color:#aaa;
+	font-size:13px;
+
+	padding-bottom:2px;
+
+	overflow: hidden;
+}
+
+#menuBar #saveButton
+{
+	width:58px;
+	height:56px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 54px;
+
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#menuBar #saveButton:hover
+{
+	background:#ddd;
+	color:#666;
+	text-decoration: underline;
+}
+#menuBar #saveButton>#imageCount
+{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 38px;
+	line-height: 20px;
+	text-decoration: initial;
+	opacity: .55;
+	font-size: 10px;
+	padding-right: 5px;
+}
+
+#menuBar #saveOptions
+{
+	height:100%;
+}
+
+#menuBar #saveOptions>div
+{
+	height:50%;
+}
+#menuBar #saveOptions>div>*
+{
+	float:left;
+}
+#menuBar #saveOptions>div>input
+{
+	opacity: .65;
+	border: solid 1px #ddd;
+	padding: 1px;
+	padding-left: 5px;
+
+	font-size: 15px;
+	height: 27px;
+	width: 357px;
+	padding-bottom: 3px;
+}
+#menuBar #saveOptions .name
+{
+	width:100px;
+	line-height: 27px;
+	text-align:center;
+}
+
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-track {}
+::-webkit-scrollbar-thumb {
+    background: #bbb; 
+}
