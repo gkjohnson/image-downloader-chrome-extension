@@ -1,51 +1,43 @@
 {
-  // Manifest Version
-  "manifest_version": 2,
+    // Manifest Version
+    "manifest_version": 2,
 
-  // Extension Description
-  "name": "Bulk Image Downloader",
-  "description": "Downloads a set of images from a webpage",
-  "version": "0.0.1",
+    // Extension Description
+    "name": "Bulk Image Downloader",
+    "description": "Downloads a set of images from a webpage",
+    "version": "0.0.1",
 
-  "permissions": 
-  [
-    "downloads","tabs"
-  ],
+    "permissions": [
+        "downloads","tabs"
+    ],
 
-  "icons": 
-  {
-    "16": "icons/icon.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  },
+    "icons": {
+        "16": "icons/icon.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
 
-  // Page Action Definition
-  "browser_action" :
-  {
-    "default_title" : "Image Set Downloader",
-    "default_popup" : "downloadPopup.html",
-    "default_icon"  : "icons/icon.png"
-  },
+    // Page Action Definition
+    "browser_action" : {
+        "default_title" : "Image Set Downloader",
+        "default_popup" : "downloadPopup.html",
+        "default_icon"  : "icons/icon.png"
+    },
 
-  // Background Logic Definition
-  "background": 
-  {
-    "scripts" : ["background.js"]
-  },
+    // Background Logic Definition
+    "background": {
+        "scripts" : ["background.js"]
+    },
 
-  // Accessible Resources Definition
-  "web_accessible_resources":
-  [
-    "jquery.js",
-    "helpers.js"
-  ],
+    // Accessible Resources Definition
+    "web_accessible_resources": [
+        "jquery.js",
+        "helpers.js"
+    ],
 
-  // Injected Scripts
-  "content_scripts":
-  [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["lib/jquery.js","helpers.js","contentScript.js"]
-    }
-  ]
+    // Injected Scripts
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["lib/jquery.js","helpers.js","contentScript.js"]
+    }]
 }
