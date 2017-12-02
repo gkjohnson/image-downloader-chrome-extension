@@ -2,13 +2,13 @@ var MIN_HEIGHT = 100;
 var MIN_WIDTH = 100;
 
 // Registers for request of list
-registerForMessages(function(msg, sender, sendResponse){
+registerForMessages(function(msg, sender, sendResponse) {
     album.initialize();
     sendResponse(album.getImageList());
 });
 
 // finds the appropriate div for pictures
-$(document).ready(function(){
+$(document).ready(function() {
     album.initialize();
 });
 
@@ -17,8 +17,7 @@ var album = {};
 album.container = null;
 
 // Initializes the album by finding the album with relevant images in it
-album.initialize = function()
-{
+album.initialize = function() {
     /*
     var tallestHeight = -1;
     var that = this;
@@ -39,7 +38,7 @@ album.initialize = function()
 
     var szScore = 0;
     var largestImg = null;
-    $("img").each(function(i,dom){
+    $("img").each(function(i,dom) {
         dom = $(dom);
 
         if(!that._isImageValid(dom)) return;
@@ -52,15 +51,13 @@ album.initialize = function()
         }
     });
     
-    if( largestImg == null )
-    {   
+    if( largestImg == null ) {   
         this.container = null;
         return;
     }
 
     var cand = largestImg.parent();
-    while(true)
-    {
+    while(true) {
         if(cand[0] == $("body")[0] ) break;
 
         var imgCount = 0;
@@ -77,8 +74,7 @@ album.initialize = function()
 };
 
 // Returns a list with images within the album along with relevant meta data
-album.getImageList = function()
-{
+album.getImageList = function() {
 
     var that = this;
 
@@ -132,8 +128,7 @@ album.getImageList = function()
 
 // TODO: Rethink Size Validation and src fetching
 // Returns the image source
-album.getImgSrc = function(img)
-{
+album.getImgSrc = function(img) {
     var src = "";
     if( isUrlToImage(img[0].src)) src = img[0].src;
 
@@ -159,8 +154,7 @@ album.getImgSrc = function(img)
 }
 
 // Returns to the source that is linked to
-album.getLinkSrc = function(img)
-{
+album.getLinkSrc = function(img) {
     // find the parent
     var linkPrnt = img.parent("a");
     var linkSrc = "";
@@ -170,8 +164,7 @@ album.getLinkSrc = function(img)
 }
 
 // Returns true if the image is valid, false otherwise
-album._isImageValid = function(img)
-{
+album._isImageValid = function(img) {
     // check size first and return early because it's faster
     var sizeValid = img.height() > MIN_HEIGHT && img.width() > MIN_WIDTH;   
 

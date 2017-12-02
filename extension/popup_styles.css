@@ -1,18 +1,16 @@
-*
-{
+* {
     margin:0;
     padding:0;
     outline-width: 0;
 }
-body
-{
+
+body {
     font-family: helvetica;
     width:517px;
 }
 
 /* For images in List */
-#imageList
-{
+#imageList {
     width:100%;
     max-height: 500px;
 
@@ -23,8 +21,8 @@ body
     user-select:none;
     -webkit-user-select:none;
 }
-#imageList>div
-{
+
+#imageList > div {
     width:100px;
     height:100px;
     margin-right:2px;
@@ -39,17 +37,15 @@ body
     position: relative;
 }
 
-#imageList>div:not(.selected)
-{
+#imageList > div:not(.selected) {
     opacity: .25;
 }
-#imageList>div:not(.selected):hover
-{
+
+#imageList > div:not(.selected):hover {
     opacity: .5;
 }
 
-#imageList>span
-{
+#imageList > span {
     padding:20px;
     font-size: 13px;
     color:#aaa;
@@ -58,8 +54,7 @@ body
 }
 
 /* Menu Bar */
-#menuBar
-{
+#menuBar {
     width:100%;
     height:58px;
 
@@ -71,8 +66,7 @@ body
     overflow: hidden;
 }
 
-#menuBar #saveButton
-{
+#menuBar #saveButton {
     width:58px;
     height:56px;
     cursor: pointer;
@@ -83,14 +77,14 @@ body
     right: 0;
     top: 0;
 }
-#menuBar #saveButton:hover
-{
+
+#menuBar #saveButton:hover {
     background:#ddd;
     color:#666;
     text-decoration: underline;
 }
-#menuBar #saveButton>#imageCount
-{
+
+#menuBar #saveButton>#imageCount {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -102,21 +96,19 @@ body
     padding-right: 5px;
 }
 
-#menuBar #saveOptions
-{
+#menuBar #saveOptions {
     height:100%;
 }
 
-#menuBar #saveOptions>div
-{
+#menuBar #saveOptions > div {
     height:50%;
 }
-#menuBar #saveOptions>div>*
-{
+
+#menuBar #saveOptions > div > * {
     float:left;
 }
-#menuBar #saveOptions>div>input
-{
+
+#menuBar #saveOptions > div > input {
     opacity: .65;
     border: solid 1px #ddd;
     padding: 1px;
@@ -127,14 +119,12 @@ body
     width: 357px;
     padding-bottom: 3px;
 }
-#menuBar #saveOptions .name
-{
+
+#menuBar #saveOptions .name {
     width:100px;
     line-height: 27px;
     text-align:center;
 }
-
-
 
 /* Scrollbar */
 ::-webkit-scrollbar {
