@@ -1,67 +1,55 @@
 // Illegal characters for the input fields
-var ILLEGAL_CHAR = "?!@#$%^&*(){}[]|<>/\\\'\":;";
+const ILLEGAL_CHAR = "?!@#$%^&*(){}[]|<>/\\\'\":;";
 
 // Resizes the popup
-function resizePopup(w,h)
-{
-    if( w != null )
-    {
+function resizePopup(w,h) {
+    if( w != null ) {
         w += "px";
-        if(document.body != null) document.body.style.width=w;
-        document.getElementsByTagName("html")[0].style.width=w;
+        if(document.body != null) document.body.style.width = w;
+        document.getElementsByTagName("html")[0].style.width = w;
     }
-    if(h != null)
-    {
+    if(h != null) {
         h += "px";
-        if(document.body != null) document.body.style.height=h;
-        document.getElementsByTagName("html")[0].style.height=h;
+        if(document.body != null) document.body.style.height = h;
+        document.getElementsByTagName("html")[0].style.height = h;
     }
 }
 resizePopup(null,0);
 
-$(document).ready(function(){
+document.addEventListener('DOMContentLoaded', () => {
     // reset the height to zero again because body may not have existed yet before
     resizePopup(null,0);
 
     // ask for the current tab's images
-    chrome.windows.getCurrent(function(win)
-    {
+    chrome.windows.getCurrent(win => {
         chrome.tabs.query({
             active:true,
             windowId:win.id
         },
-        function(tabs){
+        tabs => {
             if(tabs.length == 0) return;
-            chrome.tabs.sendMessage(tabs[0].id,"requestImages",function(list){
+            chrome.tabs.sendMessage(tabs[0].id,'requestImages', list => {
                 OnRetrieveImages(list);
             });
         });
     });
 
     // save the images when the button is pressed
-    $("#saveButton").click(function(){  
-        saveOutImages();
-    });
+    document.querySelector('#saveButton')
+        .addEventListener('click', () => saveOutImages());
 
     // ignore keypresses if they're illegal
-    $("input").keypress(function(e)
-    {
-        for(var i = 0; i < illegal.length ; i ++ )
-        {
-            if( String.fromCharCode(e.keyCode).indexOf(ILLEGAL_CHAR[i]) != -1)
-            {
-                e.preventDefault();
-                return;
-            }
+    $("input").keypress(function(e) {
+        if (ILLEGAL_CHAR.indexOf(String.fromCharCode(e.keyCode)) != -1) {
+            e.preventDefault();
+            return;
         }
     });
 });
 
 // Fill in the data of the page
-function OnRetrieveImages(list)
-{
-    if( list == undefined )
-    {
+function OnRetrieveImages(list) {
+    if( list == undefined ) {
         $("#imageList").html("<span>There was an issue fetching images...</span>");
         $("#saveButton").remove();
         return; 
@@ -70,8 +58,7 @@ function OnRetrieveImages(list)
     $("#folderNameField").val(list.folderName.removeChar(ILLEGAL_CHAR));
     $("#fileNameField").val(list.fileName.removeChar(ILLEGAL_CHAR));
 
-    for( var i = 0 ; i < list.imgList.length ; i ++ )
-    {
+    for( var i = 0 ; i < list.imgList.length ; i ++ ) {
         var d = $("<div><div class = 'mark'></div></div>");
         d.css("background-image","url('"+list.imgList[i].display+"')");
         d.addClass("selected");
@@ -79,15 +66,11 @@ function OnRetrieveImages(list)
         d.data("display-src", list.imgList[i].display);
         d.data("download-src", list.imgList[i].download)
 
-        d.click(function()
-        {
+        d.click(function() {
             dom = $(this);
-            if(dom.hasClass("selected"))
-            {
+            if(dom.hasClass("selected")) {
                 dom.removeClass("selected");
-            }
-            else
-            {
+            } else {
                 dom.addClass("selected");
             }
 
@@ -101,8 +84,7 @@ function OnRetrieveImages(list)
 }
 
 // Saves the images to a folder in the downloads folder
-function saveOutImages()
-{
+function saveOutImages() {
     $(".selected").each(function(i, dom){
         dom = $(dom);
 
@@ -129,7 +111,6 @@ function saveOutImages()
 }
 
 // Updates the counter of images
-function updateImageCount()
-{
+function updateImageCount() {
     $("#imageCount").html($(".selected").size() + " images");
 }

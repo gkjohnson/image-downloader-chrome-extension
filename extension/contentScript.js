@@ -124,8 +124,6 @@ album.getImageList = function() {
     return list;
 };
 
-
-
 // TODO: Rethink Size Validation and src fetching
 // Returns the image source
 album.getImgSrc = function(img) {
