@@ -76,30 +76,28 @@ album.initialize = function() {
 // Returns a list with images within the album along with relevant meta data
 album.getImageList = function() {
 
-    var that = this;
+    const that = this;
 
     // Generate meta data
-    var title = document.title;
-    var folder = title;
-    var file = title;
+    const title = document.title;
+    const folder = title;
+    let file = title;
 
-    var index = file.indexOf(' ',15);
-    if( index != -1) file = file.substr(0, file.indexOf(' ', 15));
+    if(file.indexOf(' ',15) != -1) file = file.substr(0, file.indexOf(' ', 15));
 
-    list = 
-    {
+    list = {
         srcURL : document.URL,
         folderName : folder,
         fileName : file,
     };
 
     // Generate list of images
-    var imgList = new Array();
+    const imgList = new Array();
 
     // Save each image into an array
-    if(this.container != null )
-    {
-        this.container.find("img").each(function(i,dom){
+    if(this.container != null ) {
+        const imgDict = {};
+        this.container.find("img").each(function(i, dom) {
 
             dom = $(dom);
 
@@ -112,10 +110,13 @@ album.getImageList = function() {
             if( src === "" ) src = linkSrc;
             if( linkSrc === "" ) linkSrc = src;
 
-            imgList.push({
-                display  : src,
-                download : linkSrc
-            });
+            if (!(linkSrc in imgDict)) {
+                imgDict[linkSrc] = true;
+                imgList.push({
+                    display  : src,
+                    download : linkSrc
+                });
+            }
         });
     }
 
@@ -123,7 +124,7 @@ album.getImageList = function() {
 
     return list;
 };
-
+    
 // TODO: Rethink Size Validation and src fetching
 // Returns the image source
 album.getImgSrc = function(img) {
