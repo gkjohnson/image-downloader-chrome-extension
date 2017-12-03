@@ -17,8 +17,8 @@ function sendMessage(msgName, msg, response) {
 }
 
 String.prototype.removeChar = function(char) {
-    var temp = this;
-    for( var i = 0 ; i < char.length ; i ++ ) {
+    let temp = this;
+    for(let i = 0 ; i < char.length ; i ++ ) {
         while(temp.indexOf(char[i]) != -1) {
             temp = temp.replace(char[i],'');
         }

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Fill in the data of the page
 function OnRetrieveImages(list) {
-    if( list == undefined ) {
+    if(list == undefined) {
         $("#imageList").html("<span>There was an issue fetching images...</span>");
         $("#saveButton").remove();
         return; 
@@ -58,8 +58,8 @@ function OnRetrieveImages(list) {
     $("#folderNameField").val(list.folderName.removeChar(ILLEGAL_CHAR));
     $("#fileNameField").val(list.fileName.removeChar(ILLEGAL_CHAR));
 
-    for( var i = 0 ; i < list.imgList.length ; i ++ ) {
-        var d = $("<div><div class = 'mark'></div></div>");
+    for(let i = 0; i < list.imgList.length; i ++) {
+        const d = $("<div><div class = 'mark'></div></div>");
         d.css("background-image","url('"+list.imgList[i].display+"')");
         d.addClass("selected");
 
@@ -88,17 +88,17 @@ function saveOutImages() {
     $(".selected").each(function(i, dom){
         dom = $(dom);
 
-        var src = dom.data("download-src");
-        var index = src.lastIndexOf('.');
-        var filetype = src.substr(index, src.length - index);
+        const src = dom.data("download-src");
+        let index = src.lastIndexOf('.');
+        let filetype = src.substr(index, src.length - index);
         
         index = filetype.indexOf('?');
         if(index != -1 ) filetype = filetype.substr(0,index);
 
-        var folder = $("#folderNameField").val().trim();
+        let folder = $("#folderNameField").val().trim();
         if(folder !== "") folder += "/";
 
-        var file = $("#fileNameField").val().trim();
+        let file = $("#fileNameField").val().trim();
         if(file === "") file = "image";
 
         console.log(src + " : " + filetype + " : " + (folder + file + " " + i + filetype));

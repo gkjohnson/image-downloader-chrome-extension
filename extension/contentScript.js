@@ -13,7 +13,7 @@ $(document).ready(function() {
 });
 
 // Album that contains all the images and is the interface for retrieving them
-var album = {};
+const album = {};
 album.container = null;
 
 // Initializes the album by finding the album with relevant images in it
@@ -34,10 +34,10 @@ album.initialize = function() {
     });
     */
     
-    var that = this;
+    const that = this;
 
-    var szScore = 0;
-    var largestImg = null;
+    let szScore = 0;
+    let largestImg = null;
     $("img").each(function(i,dom) {
         dom = $(dom);
 
@@ -56,7 +56,7 @@ album.initialize = function() {
         return;
     }
 
-    var cand = largestImg.parent();
+    let cand = largestImg.parent();
     while(true) {
         if(cand[0] == $("body")[0] ) break;
 
@@ -70,7 +70,6 @@ album.initialize = function() {
     }
 
     this.container = cand;
-
 };
 
 // Returns a list with images within the album along with relevant meta data
@@ -128,7 +127,7 @@ album.getImageList = function() {
 // TODO: Rethink Size Validation and src fetching
 // Returns the image source
 album.getImgSrc = function(img) {
-    var src = "";
+    let src = "";
     if( isUrlToImage(img[0].src)) src = img[0].src;
 
     //console.log("NEW SRC! " + src + " : " + img[0].src + " : " + isUrlToImage(img[0].src));
@@ -155,9 +154,9 @@ album.getImgSrc = function(img) {
 // Returns to the source that is linked to
 album.getLinkSrc = function(img) {
     // find the parent
-    var linkPrnt = img.parent("a");
-    var linkSrc = "";
-    if( linkPrnt.size() > 0 && isUrlToImage(linkPrnt[0].href)) linkSrc = linkPrnt[0].href;
+    const linkPrnt = img.parent("a");
+    let linkSrc = "";
+    if(linkPrnt.size() > 0 && isUrlToImage(linkPrnt[0].href)) linkSrc = linkPrnt[0].href;
 
     return linkSrc;
 }
@@ -165,13 +164,13 @@ album.getLinkSrc = function(img) {
 // Returns true if the image is valid, false otherwise
 album._isImageValid = function(img) {
     // check size first and return early because it's faster
-    var sizeValid = img.height() > MIN_HEIGHT && img.width() > MIN_WIDTH;   
+    const sizeValid = img.height() > MIN_HEIGHT && img.width() > MIN_WIDTH;   
 
     // get the sources
-    var src = this.getImgSrc(img);
-    var linkSrc = this.getLinkSrc(img);
-    var srcValid = src != "" || linkSrc != "";
+    const src = this.getImgSrc(img);
+    const linkSrc = this.getLinkSrc(img);
+    const srcValid = src != "" || linkSrc != "";
 
-    var valid = srcValid && sizeValid;
+    const valid = srcValid && sizeValid;
     return valid;
 };
