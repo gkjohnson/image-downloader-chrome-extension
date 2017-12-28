@@ -3,7 +3,7 @@
     "manifest_version": 2,
 
     // Extension Description
-    "name": "Bulk Image Downloader",
+    "name": "Image Collection Downloader",
     "description": "Downloads a set of images from a webpage",
     "version": "0.0.1",
 
@@ -19,14 +19,14 @@
 
     // Page Action Definition
     "browser_action" : {
-        "default_title" : "Image Set Downloader",
-        "default_popup" : "downloadPopup.html",
+        "default_title" : "Image Collection Downloader",
+        "default_popup" : "popup.html",
         "default_icon"  : "icons/icon.png"
     },
 
     // Background Logic Definition
     "background": {
-        "scripts" : ["background.js"]
+        "scripts" : []
     },
 
     // Accessible Resources Definition
