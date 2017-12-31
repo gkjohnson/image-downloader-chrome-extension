@@ -2,7 +2,7 @@
 // TODO : Fix this so it works with regex
 function isUrlToImage(url) {
     //return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
-    return (url.indexOf(".jpeg")!=-1 || url.indexOf(".jpg")!=-1 || url.indexOf(".gif")!=-1 || url.indexOf(".png")!=-1);
+    return (url.indexOf('.jpeg') != -1 || url.indexOf('.jpg') != -1 || url.indexOf('.gif') != -1 || url.indexOf('.png') != -1);
 }
 
 // register for Messages
@@ -11,16 +11,15 @@ function registerForMessages(callback) {
 }
 
 // send Messages
-function sendMessage(msgName, msg, response) {
-    if( response == undefined) response = function(){};
-    chrome.runtime.sendMessage(null,{"name":msgName,"content":msg}, response);
+function sendMessage(name, content, response) {
+    chrome.runtime.sendMessage(null, { name, content }, response || () => {});
 }
 
 String.prototype.removeChar = function(char) {
     let temp = this;
-    for(let i = 0 ; i < char.length ; i ++ ) {
+    for(let i = 0; i < char.length; i ++ ) {
         while(temp.indexOf(char[i]) != -1) {
-            temp = temp.replace(char[i],'');
+            temp = temp.replace(char[i], '');
         }
     }
     return temp;

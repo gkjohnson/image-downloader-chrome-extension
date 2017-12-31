@@ -22,7 +22,7 @@ album.initialize = function() {
     var tallestHeight = -1;
     var that = this;
     // Find the tallest div in the page and assume that that is the one with the primary content
-    $("*").each(function(i,dom)
+    $('*').each(function(i,dom)
     {
         dom = $(dom);
 
@@ -38,7 +38,7 @@ album.initialize = function() {
 
     let szScore = 0;
     let largestImg = null;
-    $("img").each(function(i,dom) {
+    $('img').each(function(i,dom) {
         dom = $(dom);
 
         if(!that._isImageValid(dom)) return;
@@ -58,10 +58,10 @@ album.initialize = function() {
 
     let cand = largestImg.parent();
     while(true) {
-        if(cand[0] == $("body")[0] ) break;
+        if(cand[0] == $('body')[0] ) break;
 
         var imgCount = 0;
-        cand.find("img").each(function(i,dom){
+        cand.find('img').each(function(i,dom){
             if(that._isImageValid($(dom))) imgCount ++;
         });
         if(imgCount > 2) break;
@@ -96,7 +96,7 @@ album.getImageList = function() {
     // Save each image into an array
     if(this.container != null ) {
         const imgDict = {};
-        this.container.find("img").each(function(i, dom) {
+        this.container.find('img').each(function(i, dom) {
 
             dom = $(dom);
 
@@ -106,8 +106,8 @@ album.getImageList = function() {
             var src = that.getImgSrc(dom);
             var linkSrc = that.getLinkSrc(dom);
 
-            if( src === "" ) src = linkSrc;
-            if( linkSrc === "" ) linkSrc = src;
+            if( src === '' ) src = linkSrc;
+            if( linkSrc === '' ) linkSrc = src;
 
             if (!(linkSrc in imgDict)) {
                 imgDict[linkSrc] = true;
@@ -127,19 +127,19 @@ album.getImageList = function() {
 // TODO: Rethink Size Validation and src fetching
 // Returns the image source
 album.getImgSrc = function(img) {
-    let src = "";
-    if( isUrlToImage(img[0].src)) src = img[0].src;
+    let src = '';
+    if(isUrlToImage(img[0].src)) src = img[0].src;
 
-    //console.log("NEW SRC! " + src + " : " + img[0].src + " : " + isUrlToImage(img[0].src));
+    //console.log('NEW SRC! ' + src + ' : ' + img[0].src + ' : ' + isUrlToImage(img[0].src));
 
     // if the src isn't in there yet, look for data-src (for imgur)
-    // if( src == "" )
+    // if( src == '' )
     // {
-    //  if(img.data("src") != undefined)
+    //  if(img.data('src') != undefined)
     //  {
-    //      img.attr("src", img.data("src"));
+    //      img.attr('src', img.data('src'));
     //      var tempsrc = img[0].src;
-    //      img.attr("src","");
+    //      img.attr('src','');
 
     //      if(isUrlToImage(tempsrc)) {
     //          src = tempsrc;
@@ -154,8 +154,8 @@ album.getImgSrc = function(img) {
 // Returns to the source that is linked to
 album.getLinkSrc = function(img) {
     // find the parent
-    const linkPrnt = img.parent("a");
-    let linkSrc = "";
+    const linkPrnt = img.parent('a');
+    let linkSrc = '';
     if(linkPrnt.size() > 0 && isUrlToImage(linkPrnt[0].href)) linkSrc = linkPrnt[0].href;
 
     return linkSrc;
@@ -169,7 +169,7 @@ album._isImageValid = function(img) {
     // get the sources
     const src = this.getImgSrc(img);
     const linkSrc = this.getLinkSrc(img);
-    const srcValid = src != "" || linkSrc != "";
+    const srcValid = src != '' || linkSrc != '';
 
     const valid = srcValid && sizeValid;
     return valid;
