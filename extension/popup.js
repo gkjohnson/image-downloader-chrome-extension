@@ -18,13 +18,13 @@ function resizePopup(w, h) {
 // Fill in the data of the page
 function OnRetrieveImages(list) {
     if(!list) {
-        $('#imageList').html('<span>There was an issue fetching images...</span>');
-        $('#saveButton').remove();
+        document.querySelector('#imageList').innerHTML = '<span>There was an issue fetching images...</span>';
+        document.querySelector('#saveButton').remove();
         return; 
     } 
 
-    $('#folderNameField').val(list.folderName.removeChar(ILLEGAL_CHAR));
-    $('#fileNameField').val(list.fileName.removeChar(ILLEGAL_CHAR));
+    document.querySelector('#folderNameField').value = list.folderName.removeChar(ILLEGAL_CHAR);
+    document.querySelector('#fileNameField').value = list.fileName.removeChar(ILLEGAL_CHAR);
 
     for(let i = 0; i < list.imgList.length; i ++) {
         const d = $('<div><div class = "mark"></div></div>');
@@ -49,34 +49,37 @@ function OnRetrieveImages(list) {
 
 // Saves the images to a folder in the downloads folder
 function saveOutImages() {
-    $('.selected').each(function(i, dom){
-        dom = $(dom);
+    document
+        .querySelectorAll('.selected')
+        .forEach((dom, i) => {
+            dom = $(dom);
 
-        const src = dom.data('download-src');
-        let index = src.lastIndexOf('.');
-        let filetype = src.substr(index, src.length - index);
-        
-        index = filetype.indexOf('?');
-        if(index != -1 ) filetype = filetype.substr(0,index);
+            const src = dom.data('download-src');
+            let index = src.lastIndexOf('.');
+            let filetype = src.substr(index, src.length - index);
+            
+            index = filetype.indexOf('?');
+            if(index != -1 ) filetype = filetype.substr(0,index);
 
-        let folder = $('#folderNameField').val().trim();
-        if(folder !== '') folder += '/';
+            let folder = $('#folderNameField').val().trim();
+            if(folder !== '') folder += '/';
 
-        let file = $('#fileNameField').val().trim();
-        if(file === '') file = 'image';
+            let file = $('#fileNameField').val().trim();
+            if(file === '') file = 'image';
 
-        console.log(src + ' : ' + filetype + ' : ' + (folder + file + ' ' + i + filetype));
+            console.log(src + ' : ' + filetype + ' : ' + (folder + file + ' ' + i + filetype));
 
-        chrome.downloads.download({
-            url : src,
-            filename : folder + file + ' ' + i + filetype
-        }); 
-    });
+            chrome.downloads.download({
+                url : src,
+                filename : folder + file + ' ' + i + filetype
+            }); 
+        });
 }
 
 // Updates the counter of images
 function updateImageCount() {
-    $('#imageCount').html($('.selected').size() + ' images');
+    const selected = document.querySelectorAll('.selected')
+    document.querySelector('#imageCount').innerText = `${selected.length} images`;
 }
 
 /* Initialize */
@@ -106,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .addEventListener('click', () => saveOutImages());
 
     // ignore keypresses if they're illegal
-    $('input').keypress(function(e) {
+    $('input').keypress(e => {
         const key = String.fromCharCode(e.keyCode);
         if (ILLEGAL_CHAR.indexOf(key) != -1) {
             e.preventDefault();
