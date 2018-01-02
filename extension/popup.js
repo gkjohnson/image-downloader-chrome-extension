@@ -17,34 +17,34 @@ function resizePopup(w, h) {
 
 // Fill in the data of the page
 function OnRetrieveImages(list) {
-    if(!list) {
+    if(list) {
+        document.querySelector('#folderNameField').value = list.folderName.removeChar(ILLEGAL_CHAR);
+        document.querySelector('#fileNameField').value = list.fileName.removeChar(ILLEGAL_CHAR);
+
+        for(let i = 0; i < list.imgList.length; i ++) {
+            const d = $('<div><div class = "mark"></div></div>');
+            d.css('background-image','url("'+list.imgList[i].display+'")');
+            d.addClass('selected');
+
+            d.data('display-src', list.imgList[i].display);
+            d.data('download-src', list.imgList[i].download)
+
+            d.click(function() {
+                if(this.classList.contains('selected')) this.classList.remove('selected');
+                else dom.classList.add('selected');
+
+                updateImageCount();
+            });
+
+            $("#imageList").append(d);
+        }
+
+        updateImageCount();
+    } else {
         document.querySelector('#imageList').innerHTML = '<span>There was an issue fetching images...</span>';
         document.querySelector('#saveButton').remove();
         return; 
     } 
-
-    document.querySelector('#folderNameField').value = list.folderName.removeChar(ILLEGAL_CHAR);
-    document.querySelector('#fileNameField').value = list.fileName.removeChar(ILLEGAL_CHAR);
-
-    for(let i = 0; i < list.imgList.length; i ++) {
-        const d = $('<div><div class = "mark"></div></div>');
-        d.css('background-image','url("'+list.imgList[i].display+'")');
-        d.addClass('selected');
-
-        d.data('display-src', list.imgList[i].display);
-        d.data('download-src', list.imgList[i].download)
-
-        d.click(function() {
-            if(this.classList.contains('selected')) this.classList.remove('selected');
-            else dom.classList.add('selected');
-
-            updateImageCount();
-        });
-
-        $("#imageList").append(d);
-    }
-
-    updateImageCount();
 }
 
 // Saves the images to a folder in the downloads folder
@@ -85,7 +85,7 @@ function updateImageCount() {
 /* Initialize */
 document.addEventListener('DOMContentLoaded', () => {
     // reset the height to zero again because body may not have existed yet before
-    resizePopup(null,0);
+    resizePopup(null, 0);
 
     // ask for the current tab's images
     // TODO: Can't we just get the 'activeTab' here?
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             windowId: win.id
         },
         tabs => {
-            if(tabs.length == 0) return;
+            if(tabs.length === 0) return;
             
             chrome.tabs.sendMessage(tabs[0].id, 'requestImages', list => {
                 OnRetrieveImages(list);

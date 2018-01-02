@@ -16,11 +16,11 @@ function sendMessage(name, content, response) {
 }
 
 String.prototype.removeChar = function(char) {
-    let temp = this;
+    let resultStr = this;
     for(let i = 0; i < char.length; i ++ ) {
-        while(temp.indexOf(char[i]) != -1) {
-            temp = temp.replace(char[i], '');
+        while(resultStr.indexOf(char[i]) != -1) {
+            resultStr = resultStr.replace(char[i], '');
         }
     }
-    return temp;
+    return resultStr;
 }

@@ -1,16 +1,5 @@
-var MIN_HEIGHT = 100;
-var MIN_WIDTH = 100;
-
-// Registers for request of list
-registerForMessages(function(msg, sender, sendResponse) {
-    album.initialize();
-    sendResponse(album.getImageList());
-});
-
-// finds the appropriate div for pictures
-$(document).ready(function() {
-    album.initialize();
-});
+const MIN_HEIGHT = 100;
+const MIN_WIDTH = 100;
 
 // Album that contains all the images and is the interface for retrieving them
 const album = {};
@@ -43,9 +32,8 @@ album.initialize = function() {
 
         if(!that._isImageValid(dom)) return;
 
-        var thisScore = dom.width() * dom.height();
-        if( thisScore > szScore )
-        {
+        let thisScore = dom.width() * dom.height();
+        if(thisScore > szScore) {
             szScore = thisScore;
             largestImg = dom;
         }
@@ -103,8 +91,8 @@ album.getImageList = function() {
             // skip if it's small
             if( !that._isImageValid(dom) ) return;
 
-            var src = that.getImgSrc(dom);
-            var linkSrc = that.getLinkSrc(dom);
+            let src = that.getImgSrc(dom);
+            let linkSrc = that.getLinkSrc(dom);
 
             if( src === '' ) src = linkSrc;
             if( linkSrc === '' ) linkSrc = src;
@@ -174,3 +162,12 @@ album._isImageValid = function(img) {
     const valid = srcValid && sizeValid;
     return valid;
 };
+
+// Registers for request of list
+registerForMessages((msg, sender, sendResponse) => {
+    album.initialize();
+    sendResponse(album.getImageList());
+});
+
+// finds the appropriate div for pictures
+document.addEventListener('DOMContentLoaded', () => album.initialize());
