@@ -10,7 +10,7 @@ body {
 }
 
 /* For images in List */
-#imageList {
+#image-list {
     width:100%;
     max-height: 500px;
     padding: 3px 5px;
@@ -23,7 +23,7 @@ body {
     -webkit-user-select:none;
 }
 
-#imageList > div {
+#image-list > div {
     width:100px;
     height:100px;
     margin-right:2px;
@@ -38,15 +38,15 @@ body {
     position: relative;
 }
 
-#imageList > div:not(.selected) {
+#image-list > div:not(.selected) {
     opacity: .25;
 }
 
-#imageList > div:not(.selected):hover {
+#image-list > div:not(.selected):hover {
     opacity: .5;
 }
 
-#imageList > span {
+#image-list > span {
     padding:20px;
     font-size: 13px;
     color:#aaa;
@@ -55,7 +55,7 @@ body {
 }
 
 /* Menu Bar */
-#menuBar {
+#menu-bar {
     width:100%;
     height:58px;
 
@@ -67,7 +67,7 @@ body {
     overflow: hidden;
 }
 
-#menuBar #saveButton {
+#save-button {
     width:58px;
     height:56px;
     cursor: pointer;
@@ -79,13 +79,13 @@ body {
     top: 0;
 }
 
-#menuBar #saveButton:hover {
+#save-button:hover {
     background:#ddd;
     color:#666;
     text-decoration: underline;
 }
 
-#menuBar #saveButton>#imageCount {
+#save-button > #imageCount {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -97,19 +97,19 @@ body {
     padding-right: 5px;
 }
 
-#menuBar #saveOptions {
+#save-options {
     height:100%;
 }
 
-#menuBar #saveOptions > div {
+#save-options > div {
     height:50%;
 }
 
-#menuBar #saveOptions > div > * {
+#save-options > div > * {
     float:left;
 }
 
-#menuBar #saveOptions > div > input {
+#save-options > div > input {
     opacity: .65;
     border: solid 1px #ddd;
     padding: 1px;
@@ -121,7 +121,7 @@ body {
     padding-bottom: 3px;
 }
 
-#menuBar #saveOptions .name {
+#save-options .name {
     width:100px;
     line-height: 27px;
     text-align:center;
