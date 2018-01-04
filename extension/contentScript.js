@@ -146,7 +146,7 @@ album.getLinkSrc = img => {
 }
 
 // Returns true if the image is valid, false otherwise
-album._isImageValid = function(img) {
+album._isImageValid = function (img) {
     // check size first and return early because it's faster
     const sizeValid = img.clientHeight > MIN_HEIGHT && img.clientWidth > MIN_WIDTH;   
 

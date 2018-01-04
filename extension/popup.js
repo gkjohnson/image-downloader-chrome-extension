@@ -26,8 +26,8 @@ function OnRetrieveImages(list) {
             d.css('background-image','url("'+list.imgList[i].display+'")');
             d.addClass('selected');
 
-            d.data('display-src', list.imgList[i].display);
-            d.data('download-src', list.imgList[i].download)
+            d[0].setAttribute('display-src', list.imgList[i].display);
+            d[0].setAttribute('download-src', list.imgList[i].download)
 
             d.click(function() {
                 if(this.classList.contains('selected')) this.classList.remove('selected');
@@ -36,13 +36,15 @@ function OnRetrieveImages(list) {
                 updateImageCount();
             });
 
-            $("#image-list").append(d);
+            document
+                .getElementById('image-list')
+                .appendChild(d[0]);
         }
 
         updateImageCount();
     } else {
-        document.querySelector('#image-list').innerHTML = '<span>There was an issue fetching images...</span>';
-        document.querySelector('#save-button').remove();
+        document.getElementById('image-list').innerHTML = '<span>There was an issue fetching images...</span>';
+        document.getElementById('save-button').remove();
         return; 
     } 
 }
@@ -52,22 +54,18 @@ function saveOutImages() {
     document
         .querySelectorAll('.selected')
         .forEach((dom, i) => {
-            dom = $(dom);
-
-            const src = dom.data('download-src');
+            const src = dom.getAttribute('download-src');
             let index = src.lastIndexOf('.');
             let filetype = src.substr(index, src.length - index);
             
             index = filetype.indexOf('?');
             if(index != -1 ) filetype = filetype.substr(0,index);
 
-            let folder = $('#folder-name-field').val().trim();
+            let folder = document.getElementById('folder-name-field').value.trim();
             if(folder !== '') folder += '/';
 
-            let file = $('#file-name-field').val().trim();
+            let file = document.getElementById('file-name-field').value.trim();
             if(file === '') file = 'image';
-
-            console.log(src + ' : ' + filetype + ' : ' + (folder + file + ' ' + i + filetype));
 
             chrome.downloads.download({
                 url : src,
