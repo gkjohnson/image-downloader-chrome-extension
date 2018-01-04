@@ -39,7 +39,7 @@ album.initialize = function() {
         }
     });
     
-    if( largestImg == null ) {   
+    if(largestImg == null) {   
         this.container = null;
         return;
     }

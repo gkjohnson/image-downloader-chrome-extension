@@ -18,8 +18,8 @@ function resizePopup(w, h) {
 // Fill in the data of the page
 function OnRetrieveImages(list) {
     if(list) {
-        document.querySelector('#folderNameField').value = list.folderName.removeChar(ILLEGAL_CHAR);
-        document.querySelector('#fileNameField').value = list.fileName.removeChar(ILLEGAL_CHAR);
+        document.querySelector('#folder-name-field').value = list.folderName.removeChar(ILLEGAL_CHAR);
+        document.querySelector('#file-name-field').value = list.fileName.removeChar(ILLEGAL_CHAR);
 
         for(let i = 0; i < list.imgList.length; i ++) {
             const d = $('<div><div class = "mark"></div></div>');
@@ -31,18 +31,18 @@ function OnRetrieveImages(list) {
 
             d.click(function() {
                 if(this.classList.contains('selected')) this.classList.remove('selected');
-                else dom.classList.add('selected');
+                else this.classList.add('selected');
 
                 updateImageCount();
             });
 
-            $("#imageList").append(d);
+            $("#image-list").append(d);
         }
 
         updateImageCount();
     } else {
-        document.querySelector('#imageList').innerHTML = '<span>There was an issue fetching images...</span>';
-        document.querySelector('#saveButton').remove();
+        document.querySelector('#image-list').innerHTML = '<span>There was an issue fetching images...</span>';
+        document.querySelector('#save-button').remove();
         return; 
     } 
 }
@@ -61,10 +61,10 @@ function saveOutImages() {
             index = filetype.indexOf('?');
             if(index != -1 ) filetype = filetype.substr(0,index);
 
-            let folder = $('#folderNameField').val().trim();
+            let folder = $('#folder-name-field').val().trim();
             if(folder !== '') folder += '/';
 
-            let file = $('#fileNameField').val().trim();
+            let file = $('#file-name-field').val().trim();
             if(file === '') file = 'image';
 
             console.log(src + ' : ' + filetype + ' : ' + (folder + file + ' ' + i + filetype));
@@ -79,7 +79,7 @@ function saveOutImages() {
 // Updates the counter of images
 function updateImageCount() {
     const selected = document.querySelectorAll('.selected')
-    document.querySelector('#imageCount').innerText = `${selected.length} images`;
+    document.querySelector('#image-count').innerText = `${selected.length} images`;
 }
 
 /* Initialize */
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // save the images when the button is pressed
     document
-        .querySelector('#saveButton')
+        .querySelector('#save-button')
         .addEventListener('click', () => saveOutImages());
 
     // ignore keypresses if they're illegal

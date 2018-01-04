@@ -12,7 +12,7 @@ function registerForMessages(callback) {
 
 // send Messages
 function sendMessage(name, content, response) {
-    chrome.runtime.sendMessage(null, { name, content }, response || () => {});
+    chrome.runtime.sendMessage(null, { name, content }, response || function() {});
 }
 
 String.prototype.removeChar = function(char) {
