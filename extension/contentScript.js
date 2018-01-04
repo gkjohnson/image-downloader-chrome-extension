@@ -23,38 +23,35 @@ album.initialize = function() {
     });
     */
     
-    const that = this;
-
     let szScore = 0;
     let largestImg = null;
-    $('img').each(function(i,dom) {
-        dom = $(dom);
-
-        if(!that._isImageValid(dom)) return;
-
-        let thisScore = dom.width() * dom.height();
-        if(thisScore > szScore) {
-            szScore = thisScore;
-            largestImg = dom;
-        }
-    });
+    Array.from(document.getElementsByTagName('img'))
+        .forEach(img => {
+            if(this._isImageValid(img)) {
+                let thisScore = img.clientWidth * img.clientHeight;
+                if(thisScore > szScore) {
+                    szScore = thisScore;
+                    largestImg = img;
+                }
+            }
+        });
     
     if(largestImg == null) {   
         this.container = null;
         return;
     }
 
-    let cand = largestImg.parent();
+    let cand = largestImg.parentNode;
     while(true) {
-        if(cand[0] == $('body')[0] ) break;
+        if(cand == document.body) break;
 
-        var imgCount = 0;
-        cand.find('img').each(function(i,dom){
-            if(that._isImageValid($(dom))) imgCount ++;
-        });
+        const imgCount = 
+            Array.from(cand.getElementsByTagName('img'))
+                .filter(img => this._isImageValid(img))
+                .length;
         if(imgCount > 2) break;
 
-        cand = cand.parent();
+        cand = cand.parentNode;
     }
 
     this.container = cand;
@@ -84,27 +81,24 @@ album.getImageList = function() {
     // Save each image into an array
     if(this.container != null ) {
         const imgDict = {};
-        this.container.find('img').each(function(i, dom) {
+        Array.from(this.container.getElementsByTagName('img'))
+            .forEach(dom => {
+                if(!that._isImageValid(dom)) return;
 
-            dom = $(dom);
+                let src = that.getImgSrc(dom);
+                let linkSrc = that.getLinkSrc(dom);
 
-            // skip if it's small
-            if( !that._isImageValid(dom) ) return;
+                if( src === '' ) src = linkSrc;
+                if( linkSrc === '' ) linkSrc = src;
 
-            let src = that.getImgSrc(dom);
-            let linkSrc = that.getLinkSrc(dom);
-
-            if( src === '' ) src = linkSrc;
-            if( linkSrc === '' ) linkSrc = src;
-
-            if (!(linkSrc in imgDict)) {
-                imgDict[linkSrc] = true;
-                imgList.push({
-                    display  : src,
-                    download : linkSrc
-                });
-            }
-        });
+                if (!(linkSrc in imgDict)) {
+                    imgDict[linkSrc] = true;
+                    imgList.push({
+                        display  : src,
+                        download : linkSrc
+                    });
+                }
+            });
     }
 
     list.imgList = imgList;
@@ -116,7 +110,7 @@ album.getImageList = function() {
 // Returns the image source
 album.getImgSrc = function(img) {
     let src = '';
-    if(isUrlToImage(img[0].src)) src = img[0].src;
+    if(isUrlToImage(img.src)) src = img.src;
 
     //console.log('NEW SRC! ' + src + ' : ' + img[0].src + ' : ' + isUrlToImage(img[0].src));
 
@@ -141,6 +135,7 @@ album.getImgSrc = function(img) {
 
 // Returns to the source that is linked to
 album.getLinkSrc = function(img) {
+    img = $(img)
     // find the parent
     const linkPrnt = img.parent('a');
     let linkSrc = '';
@@ -152,7 +147,7 @@ album.getLinkSrc = function(img) {
 // Returns true if the image is valid, false otherwise
 album._isImageValid = function(img) {
     // check size first and return early because it's faster
-    const sizeValid = img.height() > MIN_HEIGHT && img.width() > MIN_WIDTH;   
+    const sizeValid = img.clientHeight > MIN_HEIGHT && img.clientWidth > MIN_WIDTH;   
 
     // get the sources
     const src = this.getImgSrc(img);
