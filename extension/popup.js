@@ -22,14 +22,16 @@ function OnRetrieveImages(list) {
         document.querySelector('#file-name-field').value = list.fileName.removeChar(ILLEGAL_CHAR);
 
         for(let i = 0; i < list.imgList.length; i ++) {
-            const d = $('<div><div class = "mark"></div></div>');
-            d.css('background-image','url("'+list.imgList[i].display+'")');
-            d.addClass('selected');
+            const d = document.createElement('div');
+            d.innerHTML = '<div class = "mark"></div>';
 
-            d[0].setAttribute('display-src', list.imgList[i].display);
-            d[0].setAttribute('download-src', list.imgList[i].download)
+            d.style.backgroundImage = `url("${list.imgList[i].display}")`;
+            d.classList.add('selected');
 
-            d.click(function() {
+            d.setAttribute('display-src', list.imgList[i].display);
+            d.setAttribute('download-src', list.imgList[i].download)
+
+            d.addEventListener('click', function() {
                 if(this.classList.contains('selected')) this.classList.remove('selected');
                 else this.classList.add('selected');
 
@@ -38,7 +40,7 @@ function OnRetrieveImages(list) {
 
             document
                 .getElementById('image-list')
-                .appendChild(d[0]);
+                .appendChild(d);
         }
 
         updateImageCount();
@@ -107,12 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .addEventListener('click', () => saveOutImages());
 
     // ignore keypresses if they're illegal
-    $('input').keypress(e => {
-        const key = String.fromCharCode(e.keyCode);
-        if (ILLEGAL_CHAR.indexOf(key) != -1) {
-            e.preventDefault();
-        }
-    });
+    Array.from(document.getElementsByTagName('input'))
+        .forEach(input => {
+            input.addEventListener('keypress', e => {
+                const key = String.fromCharCode(e.keyCode);
+                if (ILLEGAL_CHAR.indexOf(key) != -1) {
+                    e.preventDefault();
+                }
+            });
+        });
 });
 
 resizePopup(null,0);
