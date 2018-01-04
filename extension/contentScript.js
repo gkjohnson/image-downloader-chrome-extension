@@ -134,12 +134,13 @@ album.getImgSrc = function(img) {
 }
 
 // Returns to the source that is linked to
-album.getLinkSrc = function(img) {
-    img = $(img)
+album.getLinkSrc = img => {
     // find the parent
-    const linkPrnt = img.parent('a');
+    let linkTag = img;
+    while (linkTag != null && linkTag.tagName !== 'A') linkTag = linkTag.parentNode;
+
     let linkSrc = '';
-    if(linkPrnt.size() > 0 && isUrlToImage(linkPrnt[0].href)) linkSrc = linkPrnt[0].href;
+    if(linkTag != null && isUrlToImage(linkTag.href)) linkSrc = linkTag.href;
 
     return linkSrc;
 }
