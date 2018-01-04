@@ -6,7 +6,6 @@ Clicking on an image tile deselects it so it doesn't get downloaded.
 ![Popup Example](./docs/example.png)
 
 #### TODO
-- [ ] Remove jquery
 - [ ] Revisit how images are gathered
 - [ ] Clean up code
 - [ ] Restyle
