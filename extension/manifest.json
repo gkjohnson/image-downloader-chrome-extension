@@ -38,6 +38,6 @@
     // Injected Scripts
     "content_scripts": [{
         "matches": ["<all_urls>"],
-        "js": ["lib/jquery.js","helpers.js","contentScript.js"]
+        "js": ["helpers.js","contentScript.js"]
     }]
 }
